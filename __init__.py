@@ -5,7 +5,7 @@ from urllib.request import urlopen
 from werkzeug.utils import secure_filename
 import sqlite3
 
-# to rebuild
+DATABASE_NAME = 'database.db'
 
 app = Flask(__name__)                                                                                                                  
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions
@@ -43,7 +43,7 @@ def authentification():
 
 @app.route('/fiche_client/<int:post_id>')
 def readfiche(post_id):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DATABASE_NAME)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients WHERE id = ?', (post_id,))
     data = cursor.fetchall()
@@ -53,7 +53,7 @@ def readfiche(post_id):
 
 @app.route('/consultation/')
 def readBDD():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DATABASE_NAME)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients;')
     data = cursor.fetchall()
@@ -70,7 +70,7 @@ def enregistrer_client():
     prenom = request.form['prenom']
 
     # Connexion à la base de données
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DATABASE_NAME)
     cursor = conn.cursor()
 
     # Exécution de la requête SQL pour insérer un nouveau client
