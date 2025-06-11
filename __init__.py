@@ -52,7 +52,7 @@ def readfiche(post_id):
     return render_template('read_data.html', data=data)
 
 @app.route('/consultation/')
-def readBDD():
+def read_bdd():
     conn = sqlite3.connect(DATABASE_NAME)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients;')
